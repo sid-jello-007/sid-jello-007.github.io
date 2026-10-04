@@ -21,12 +21,13 @@
     out.innerHTML = '<span class="cursor"></span>';
     const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) { out.textContent = text; return; }
+    const start = performance.now();
     timer = setInterval(() => {
-      i += 2;
+      i = Math.min(text.length, Math.ceil((performance.now() - start) / 9));
       out.textContent = text.slice(0, i);
       const c = document.createElement("span"); c.className = "cursor"; out.appendChild(c);
       if (i >= text.length) clearInterval(timer);
-    }, 14);
+    }, 16);
   }
   QA.forEach(([q, a]) => {
     const b = document.createElement("button");
